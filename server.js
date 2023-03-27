@@ -131,7 +131,9 @@ app.post("/users/register", (req, res) => {
 // @access Public
 app.post("/users/login", (req, res) => {
   // Form validation
-
+  
+  console.log(req)
+  console.log(res)
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check validation
