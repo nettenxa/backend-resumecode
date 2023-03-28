@@ -18,6 +18,13 @@ const User = require("./models/User");
 const Team = require('./models/Team');
 
 const app = express();
+const cors = require('cors');
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+app.use(cors(corsOptions))
 
 // Bodyparser middleware
 app.use(
@@ -176,7 +183,7 @@ app.post("/predict", (req, res, next) => {
   };
 
   PythonShell.run("app.py", options, function (err, result) {
-    if (err) throw err;
+    // if (err) throw err;
     // result is an array consisting of messages collected
     //during execution of script.
     console.log("result: ", result.toString());
