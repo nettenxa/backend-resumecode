@@ -183,7 +183,7 @@ app.post("/predict", (req, res, next) => {
   };
 
   PythonShell.run("app.py", options, function (err, result) {
-    // if (err) throw err;
+    if (err) throw err;
     // result is an array consisting of messages collected
     //during execution of script.
     console.log("result: ", result.toString());
