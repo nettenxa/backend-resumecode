@@ -42,26 +42,6 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
 
-app.post("/predict", (req, res, next) => {
-  //Here are the option object in which arguments can be passed for the python_test.js.
-  var input = {
-    win: req.body.win,
-    lose: req.body.lose,
-  };
-  console.log(input.win, " VS ", input.lose);
-  let options = {
-    args: [input.win, input.lose],
-  };
-
-  PythonShell.run("app.py", options, function (err, result) {
-    if (err) throw err;
-    // result is an array consisting of messages collected
-    //during execution of script.
-    console.log("result: ", result.toString());
-    res.send(result.toString());
-  });
-});
-
 // Routes
 // app.use("/api/users", users);
 // app.use("/api/teams", teams);
@@ -184,6 +164,25 @@ app.post("/users/login", (req, res) => {
   });
 });
 
+app.post("/predict", (req, res, next) => {
+  //Here are the option object in which arguments can be passed for the python_test.js.
+  var input = {
+    win: req.body.win,
+    lose: req.body.lose,
+  };
+  console.log(input.win, " VS ", input.lose);
+  let options = {
+    args: [input.win, input.lose],
+  };
+
+  PythonShell.run("app.py", options, function (err, result) {
+    if (err) throw err;
+    // result is an array consisting of messages collected
+    //during execution of script.
+    console.log("result: ", result.toString());
+    res.send(result.toString());
+  });
+});
 
 const port = process.env.PORT || 5000;
 
